@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+ node:
+    build: ./
+    restart: always
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - ${HTTP_EXPOSED_PORT:-0}:8000
+      - ${HTTPS_EXPOSED_PORT:-0}:8443
+      - ${RTMP_EXPOSED_PORT:-0}:1935
+
