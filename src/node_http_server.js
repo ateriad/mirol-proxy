@@ -23,7 +23,7 @@ const context = require('./node_core_ctx');
 const streamsRoute = require('./api/routes/streams');
 const serverRoute = require('./api/routes/server');
 const relayRoute = require('./api/routes/relay');
-const managementRoute = require('./api/routes/managment');
+const managementRoute = require('./api/routes/management');
 
 class NodeHttpServer {
   constructor(config) {
