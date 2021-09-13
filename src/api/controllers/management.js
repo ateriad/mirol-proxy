@@ -3,8 +3,9 @@ const context = require('../../node_core_ctx');
 const NodeCoreUtils = require('../../node_core_utils');
 
 function startChannel(req, res, next) {
-  if (req.body) {
+  console.log(req.body);
 
+  if (req.body) {
     let publishStreamPath = `/live/${req.body.key}`;
     let publisherSession = this.sessions.get(
       this.publishers.get(publishStreamPath)
@@ -47,6 +48,7 @@ function startChannel(req, res, next) {
 }
 
 function checkLive(req, res, next) {
+  console.log(req.body);
   let publishStreamPath = `/live/${req.body.key}`;
   let publisherSession = this.sessions.get(
     this.publishers.get(publishStreamPath)
