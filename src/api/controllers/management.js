@@ -55,10 +55,10 @@ function checkLive(req, res, next) {
   );
   if(publisherSession)
   {
-    res.status(200);
+    res.status(200).json({ message: "ok" });
   }
   else{
-    res.status(404);
+    res.status(404).json({ message: "stream not found" });
   }
 }
 
