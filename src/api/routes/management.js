@@ -6,6 +6,6 @@ module.exports = (context) => {
     router.post('/live-channels', managementController.startChannel.bind(context));
     router.delete('/live-channels', managementController.stopChannel.bind(context));
     router.delete('/lives/:id', managementController.stopStream.bind(context));
-    router.post('/lives/check', managementController.stopStream.bind(context));
+    router.post('/lives/check', managementController.checkLive.bind(context));
     return router;
 };
