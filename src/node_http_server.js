@@ -62,7 +62,7 @@ class NodeHttpServer {
       app.use('/api/streams', streamsRoute(context));
       app.use('/api/server', serverRoute(context));
       app.use('/api/relay', relayRoute(context));
-      app.use('/api/v2/live', relayRoute(context));
+      app.use('/api/v2/', relayRoute(context));
     }
 
     app.use(Express.static(path.join(__dirname + '/public')));
