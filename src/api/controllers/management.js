@@ -17,7 +17,7 @@ function startChannel(req, res, next) {
       var inPath = 'rtmp://127.0.0.1:' + publisherSession.config.rtmp.port + publisherSession.publishStreamPath;
       conf.inPath = inPath;
       conf.forceStop = 1;
-      conf.liveChannelId = req.body.id;
+      conf.liveChannelId = req.body.liveChannel.id;
       var ouPath = req.body.liveChannel.channel.information['stream_url'] + req.body.liveChannel.channel.information['stream_key'];
       conf.ouPath = ouPath;
       conf.path = publisherSession.publishStreamPath;
