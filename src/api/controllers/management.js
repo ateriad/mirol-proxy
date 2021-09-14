@@ -34,7 +34,6 @@ function startChannel(req, res, next) {
             context.NodeRelaySessionlist.splice(i, 1);
           }
         }
-
         var options = {
           method: 'POST',
           json: true,
