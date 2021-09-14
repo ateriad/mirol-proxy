@@ -62,16 +62,6 @@ const config = {
     url: `${process.env.MANAGEMENT_URL}`,
     ips: ['127.0.0.1' , '192.198.0.2'],
   },
-  landscape_server: {
-    ip: '127.0.0.1',
-    rtmp_port: '1936',
-    http_port: '8001',
-  },
-  proxy_server: {
-    ip: '127.0.0.1',
-    rtmp_port: '1936',
-    http_port: '8001',
-  },
   server : `${process.env.SERVER}` ,
   relay: {
     ffmpeg: '/usr/bin/ffmpeg',

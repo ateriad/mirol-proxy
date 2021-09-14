@@ -70,18 +70,6 @@ class Management {
         request(options, function (err, res, body) {
         });
     }
-    // startChannel(url, live, channel) {
-    //     var options = {
-    //         method: 'POST',
-    //         json: true,
-    //         url: url + '/lives/channels/start',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: { live: live, channel: channel }
-    //     };
-    //     request(options, function (err, res, body) {
-    //     });
-    // }
+ 
 }
 module.exports = Management;

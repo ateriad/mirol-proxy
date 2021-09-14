@@ -33,6 +33,19 @@ function startChannel(req, res, next) {
             context.NodeRelaySessionlist.splice(i, 1);
           }
         }
+
+        var options = {
+          method: 'POST',
+          json: true,
+          url:  req.body.masterServer+'api/v2/lives/proxy/stop' ,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: { liveChannel: req.body.liveChannel.id  , channel : id }
+        };
+        request(options, function (err, res, body) {
+        });
+
       });
 
       session.run();
@@ -53,11 +66,10 @@ function checkLive(req, res, next) {
   let publisherSession = this.sessions.get(
     this.publishers.get(publishStreamPath)
   );
-  if(publisherSession)
-  {
+  if (publisherSession) {
     res.status(200).json({ message: "ok" });
   }
-  else{
+  else {
     res.status(404).json({ message: "stream not found" });
   }
 }
