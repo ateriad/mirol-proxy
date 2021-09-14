@@ -4,7 +4,7 @@ const NodeCoreUtils = require('../../node_core_utils');
 var request = require('request');
 
 function startChannel(req, res, next) {
-  console.log(req.body);
+  // console.log(req.body);
 
   if (req.body) {
     let publishStreamPath = `/live/${req.body.key}`;
@@ -61,7 +61,7 @@ function startChannel(req, res, next) {
 }
 
 function checkLive(req, res, next) {
-  console.log(req.body);
+  // console.log(req.body);
   let publishStreamPath = `/live/${req.body.key}`;
   let publisherSession = this.sessions.get(
     this.publishers.get(publishStreamPath)
