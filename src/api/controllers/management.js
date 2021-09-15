@@ -112,6 +112,7 @@ function startChannel(req, res, next) {
 
 function checkLive(req, res, next) {
   let publishStreamPath = `/${req.body.app}/${req.body.key}`;
+  console.log(publishStreamPath);
   let publisherSession = this.sessions.get(
     this.publishers.get(publishStreamPath)
   );
