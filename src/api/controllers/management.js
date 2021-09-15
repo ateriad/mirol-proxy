@@ -52,7 +52,9 @@ function startChannel(req, res, next) {
   
         session.run();
         res.status(200).json({});
-      } 
+      }else{
+        res.status(404).json({ message: "stream not found" });
+      }  
     }else{
       let publishStreamPath = `/landscape/${req.body.key}`;
       let publisherSession = this.sessions.get(
@@ -98,9 +100,10 @@ function startChannel(req, res, next) {
         session.run();
   
         res.status(200).json({});
+      }else{
+        res.status(404).json({ message: "stream not found" });
       } 
     }
-    res.status(404).json({ message: "stream not found" });
   }
   else {
     res.status(404).json({ message: 'field required dont set' });
