@@ -55,8 +55,19 @@ class NodeRelaySession extends EventEmitter {
       
       if(publisherSession!=null && this.conf.forceStop==1)
       {
+        var error = ''
+        switch (code) {
+          case 0:
+            error = 'Input stream error';
+            break;
+          case 1:
+            error = 'Distnation channel error (invalid url or blocked )';
+            break
+          default:
+            error = code;
+        }
         var management = new mng();
-        management.failChannel(publisherSession.config.management.url,this.conf.liveChannelId,code);
+        management.failChannel(publisherSession.config.management.url,this.conf.liveChannelId,error);
       }
 
       this.emit('end', this.id);
