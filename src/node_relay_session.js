@@ -50,24 +50,13 @@ class NodeRelaySession extends EventEmitter {
     });
 
     this.ffmpeg_exec.on('close', (code) => {
-      Logger.log('[relay end] id='+this.id,'code='+code);
+      //Logger.log('[relay end] id='+this.id,'code='+code);
       let publisherSession = context.sessions.get(context.publishers.get(this.conf.path));
       
       if(publisherSession!=null && this.conf.forceStop==1)
       {
-        var error = ''
-        switch (code) {
-          case 0:
-            error = 'Input stream error';
-            break;
-          case 1:
-            error = 'Distnation channel error (invalid url or blocked )';
-            break
-          default:
-            error = code;
-        }
         var management = new mng();
-        management.failChannel(publisherSession.config.management.url,this.conf.liveChannelId,error);
+        management.failChannel(publisherSession.config.management.url,this.conf.liveChannelId,code);
       }
 
       this.emit('end', this.id);
