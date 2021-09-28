@@ -100,7 +100,7 @@ class NodeRelayServer {
   onRelayPush(live , publisher , app) {
     let conf = {};
     conf.app = app;
-    conf.name = live.channel.information['stream_key'];
+    conf.name = live.liveChannel.channel.information['stream_key'];
     conf.ffmpeg = this.config.relay.ffmpeg;
     conf.ffmpeg = publisher.config.relay.ffmpeg;
     var inPath = 'rtmp://127.0.0.1:' + publisher.config.rtmp.port + publisher.publishStreamPath;
