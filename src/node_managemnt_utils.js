@@ -8,7 +8,7 @@ class Management {
         var options = {
             method: 'POST',
             json: true,
-            url: url + 'stream/lives/start',
+            url: url + 'relay/lives/start',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -46,7 +46,7 @@ class Management {
         var options = {
             method: 'POST',
             json: true,
-            url: url + 'stream/lives/stop',
+            url: url + 'relay/lives/stop',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -61,7 +61,7 @@ class Management {
         var options = {
             method: 'POST',
             json: true,
-            url: url + 'stream/lives/channels/fail',
+            url: url + 'relay/lives/channels/fail',
             headers: {
                 'Content-Type': 'application/json'
             },
