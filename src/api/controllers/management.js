@@ -15,46 +15,12 @@ function startChannel(req, res, next) {
       );
   
       if (publisherSession) {
-        var conf = Object.assign({}, publisherSession.config.relay.tasks[0]);
-        conf.ffmpeg = publisherSession.config.relay.ffmpeg;
-        var inPath = 'rtmp://127.0.0.1:' + publisherSession.config.rtmp.port + publisherSession.publishStreamPath;
-        conf.inPath = inPath;
-        conf.forceStop = 1;
-        conf.liveChannelId = req.body.liveChannel.id;
-        var ouPath = req.body.liveChannel.channel.information['stream_url'] + req.body.liveChannel.channel.information['stream_key'];
-        conf.ouPath = ouPath;
-        conf.path = publisherSession.publishStreamPath;
-        let format = ouPath.startsWith('rtsp://') ? 'rtsp' : 'flv';
-        conf.argv = ['-fflags', 'nobuffer', '-i', inPath, '-c', 'copy', '-f', format, ouPath];
-        let session = new NodeRelaySession(conf);
-        session.id = req.body.liveChannel.channel.id;
-        context.NodeRelaySessionlist.push(session);
-  
-        session.on('end', (id) => {
-          for (var i = 0; i < context.NodeRelaySessionlist.length; i++) {
-            if (context.NodeRelaySessionlist[i].id === id) {
-              context.NodeRelaySessionlist.splice(i, 1);
-            }
-          }
-          var options = {
-            method: 'POST',
-            json: true,
-            url:  req.body.masterServer+'api/v2/lives/proxy/stop' ,
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: { liveChannel: req.body.liveChannel.id  , channel : id }
-          };
-          request(options, function (err, res, body) {
-          });
-  
-        });
-  
-        session.run();
+        this.nodeEvent.emit('relayPush', req.body , publisherSession , 'live');
         res.status(200).json({});
       }else{
         res.status(404).json({ message: "stream not found" });
-      }  
+      } 
+
     }else{
       let publishStreamPath = `/landscape/${req.body.key}`;
       let publisherSession = this.sessions.get(
@@ -62,47 +28,12 @@ function startChannel(req, res, next) {
       );
   
       if (publisherSession) {
-        var conf = Object.assign({}, publisherSession.config.relay.tasks[0]);
-        conf.ffmpeg = publisherSession.config.relay.ffmpeg;
-        var inPath = 'rtmp://127.0.0.1:' + publisherSession.config.rtmp.port + publisherSession.publishStreamPath;
-        conf.inPath = inPath;
-        conf.forceStop = 1;
-        conf.liveChannelId = req.body.liveChannel.id;
-        var ouPath = req.body.liveChannel.channel.information['stream_url'] + req.body.liveChannel.channel.information['stream_key'];
-        conf.ouPath = ouPath;
-        conf.path = publisherSession.publishStreamPath;
-        let format = ouPath.startsWith('rtsp://') ? 'rtsp' : 'flv';
-        conf.argv = ['-fflags', 'nobuffer', '-i', inPath, '-c', 'copy', '-f', format, ouPath];
-        let session = new NodeRelaySession(conf);
-        session.id = req.body.liveChannel.channel.id;
-        context.NodeRelaySessionlist.push(session);
-  
-        session.on('end', (id) => {
-          for (var i = 0; i < context.NodeRelaySessionlist.length; i++) {
-            if (context.NodeRelaySessionlist[i].id === id) {
-              context.NodeRelaySessionlist.splice(i, 1);
-            }
-          }
-          var options = {
-            method: 'POST',
-            json: true,
-            url:  req.body.masterServer+'api/v2/lives/proxy/stop' ,
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: { liveChannel: req.body.liveChannel.id  , channel : id }
-          };
-          request(options, function (err, res, body) {
-          });
-  
-        });
-  
-        session.run();
-  
+        this.nodeEvent.emit('relayPush', req.body , publisherSession , 'landscape');
         res.status(200).json({});
       }else{
         res.status(404).json({ message: "stream not found" });
-      } 
+      }
+
     }
   }
   else {

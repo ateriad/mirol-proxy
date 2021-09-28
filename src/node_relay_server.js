@@ -5,6 +5,7 @@
 //
 const Logger = require('./node_core_logger');
 
+var request = require('request');
 const NodeCoreUtils = require('./node_core_utils');
 const NodeRelaySession = require('./node_relay_session');
 const context = require('./node_core_ctx');
@@ -96,18 +97,39 @@ class NodeRelayServer {
   }
 
   //从本地拉推到远端
-  onRelayPush(url, app, name) {
+  onRelayPush(live , publisher , app) {
     let conf = {};
     conf.app = app;
-    conf.name = name;
+    conf.name = live.channel.information['stream_key'];
     conf.ffmpeg = this.config.relay.ffmpeg;
-    conf.inPath = `rtmp://127.0.0.1:${this.config.rtmp.port}/${app}/${name}`;
-    conf.ouPath = url;
+    conf.ffmpeg = publisher.config.relay.ffmpeg;
+    var inPath = 'rtmp://127.0.0.1:' + publisher.config.rtmp.port + publisher.publishStreamPath;
+    conf.inPath = inPath;
+    conf.forceStop = 1;
+    conf.liveChannelId = live.liveChannel.id;
+    var ouPath = live.liveChannel.channel.information['stream_url'] + live.liveChannel.channel.information['stream_key'];
+    conf.ouPath = ouPath;
+    conf.path = publisher.publishStreamPath;
+    let format = ouPath.startsWith('rtsp://') ? 'rtsp' : 'flv';
+    conf.argv = ['-fflags', 'nobuffer', '-i', inPath, '-c', 'copy', '-f', format, ouPath];
+
     let session = new NodeRelaySession(conf);
     const id = session.id;
+    session.id = live.liveChannel.channel.id;
     context.sessions.set(id, session);
     session.on('end', (id) => {
       this.dynamicSessions.delete(id);
+      var options = {
+        method: 'POST',
+        json: true,
+        url:  live.masterServer+'api/v2/lives/proxy/stop' ,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: { liveChannel: live.liveChannel.id  , channel : id }
+      };
+      request(options, function (err, res, body) {
+      });
     });
     this.dynamicSessions.set(id, session);
     session.run();
