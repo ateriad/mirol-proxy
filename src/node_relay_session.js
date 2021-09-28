@@ -56,7 +56,7 @@ class NodeRelaySession extends EventEmitter {
       if(publisherSession!=null && this.conf.forceStop==1)
       {
         var management = new mng();
-        management.failChannel(publisherSession.config.management.url,this.conf.liveChannelId,code);
+        management.failChannel(publisherSession.config.management.url,this.conf.liveChannelId,`C${code}`);
       }
 
       this.emit('end', this.id);
