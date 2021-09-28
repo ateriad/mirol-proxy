@@ -58,13 +58,15 @@ function checkLive(req, res, next) {
 }
 
 function stopChannel(req, res, next) {
-
-  context.NodeRelaySessionlist.forEach(element => {
-    if (element.id == req.body.channel_id) {
-      element.conf.forceStop = 2;
-      element.end();
-    }
-  });
+  
+  this.sessions.forEach(function (session, id) {
+    if (session.constructor.name == 'NodeRelaySession') {
+        if (session.id == req.body.channel_id) {
+            session.conf.forceStop = 2;
+            session.end();
+        }
+      }
+    });
 
   res.json({ message: 'ok' });
 }
