@@ -17,8 +17,8 @@ let stat = {
   accepted: 0
 };
 let orientationType = {
-  ORIGINAL: 1,
-  LANDSCAPE: 2
+  ORIGINAL: 0,
+  LANDSCAPE: 90
 };
 
 let proxyStatus = {
