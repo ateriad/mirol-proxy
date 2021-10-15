@@ -21,5 +21,7 @@ jobs:
           script: |
             cd /var/www/proxy
             git reset --hard HEAD^
+            docker-compose down
             git pull
+            docker-compose up -d
 
