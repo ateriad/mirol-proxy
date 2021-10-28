@@ -7,7 +7,7 @@ function startChannel(req, res, next) {
   // console.log(req.body);
 
   if (req.body) {
-    if (req.body.liveChannel.channel.rotation == context.orientationType.ORIGINAL) {
+    if (req.body.liveChannel.destination.rotation == context.orientationType.ORIGINAL) {
       let publishStreamPath = `/live/${req.body.key}`;
       let publisherSession = this.sessions.get(
         this.publishers.get(publishStreamPath)

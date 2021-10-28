@@ -12,7 +12,7 @@ class Management {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: { stream_key: `${key}`, server: `${server}` }
+            body: { program_key: `${key}`, server: `${server}` }
         };
         request(options, function (err, res, body) {
             if (res.statusCode === 200 || res.statusCode === 201) {
