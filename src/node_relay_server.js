@@ -100,14 +100,14 @@ class NodeRelayServer {
   onRelayPush(live , publisher , app) {
     let conf = {};
     conf.app = app;
-    conf.name = live.liveChannel.channel.information['stream_key'];
+    conf.name = live.liveChannel.destination.information['stream_key'];
     conf.ffmpeg = this.config.relay.ffmpeg;
     conf.ffmpeg = publisher.config.relay.ffmpeg;
     var inPath = 'rtmp://127.0.0.1:' + publisher.config.rtmp.port + publisher.publishStreamPath;
     conf.inPath = inPath;
     conf.forceStop = 1;
     conf.liveChannelId = live.liveChannel.id;
-    var ouPath = live.liveChannel.channel.information['stream_url'] + live.liveChannel.channel.information['stream_key'];
+    var ouPath = live.liveChannel.destination.information['stream_url'] + live.liveChannel.destination.information['stream_key'];
     conf.ouPath = ouPath;
     conf.path = publisher.publishStreamPath;
     let format = ouPath.startsWith('rtsp://') ? 'rtsp' : 'flv';
@@ -115,7 +115,7 @@ class NodeRelayServer {
 
     let session = new NodeRelaySession(conf);
     const id = session.id;
-    session.id = live.liveChannel.channel.id;
+    session.id = live.liveChannel.destination.id;
     context.sessions.set(id, session);
     session.on('end', (id) => {
       this.dynamicSessions.delete(id);
