@@ -59,10 +59,10 @@ class NodeRelaySession extends EventEmitter {
         var options = {
           method: 'POST',
           json: true,
-          url:  live.masterServer+'api/v2/lives/proxy/stop' ,
+          url:  this.conf.masterServer+'api/v2/lives/proxy/stop' ,
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Basic '+ Buffer.from( this.config.masterServer.user+ ':' +this.config.masterServer.password ).toString('base64')
+            'Authorization': 'Basic '+ Buffer.from( publisherSession.config.masterServer.user+ ':' +publisherSession.config.masterServer.password ).toString('base64')
           },
           body: { destination_id: this.conf.liveChannelId }
         };

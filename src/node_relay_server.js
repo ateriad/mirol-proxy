@@ -107,6 +107,7 @@ class NodeRelayServer {
     conf.inPath = inPath;
     conf.forceStop = 1;
     conf.liveChannelId = live.liveChannel.id;
+    conf.masterServer=live.masterServer;
     var ouPath = live.liveChannel.destination.information['stream_url'] + live.liveChannel.destination.information['stream_key'];
     conf.ouPath = ouPath;
     conf.path = publisher.publishStreamPath;
