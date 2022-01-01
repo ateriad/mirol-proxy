@@ -108,7 +108,12 @@ class NodeRelayServer {
     conf.forceStop = 1;
     conf.liveChannelId = live.liveChannel.id;
     conf.masterServer=live.masterServer;
-    var ouPath = live.liveChannel.destination.information['stream_url'] + live.liveChannel.destination.information['stream_key'];
+    var url = live.destination.information['stream_url'];
+    var length = url.length;
+    if (url[length - 1] != '/') {
+      url += '/';
+    }
+    var ouPath = url + live.liveChannel.destination.information['stream_key'];
     conf.ouPath = ouPath;
     conf.path = publisher.publishStreamPath;
     let format = ouPath.startsWith('rtsp://') ? 'rtsp' : 'flv';
