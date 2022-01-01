@@ -64,7 +64,7 @@ class NodeRelaySession extends EventEmitter {
             'Content-Type': 'application/json',
             'Authorization': 'Basic '+ Buffer.from( publisherSession.config.masterServer.user+ ':' +publisherSession.config.masterServer.password ).toString('base64')
           },
-          body: { destination_id: this.conf.liveChannelId }
+          body: { destination_id: this.id }
         };
         request(options, function (err, res, body) {
         });
