@@ -7,6 +7,7 @@ const Logger = require('./node_core_logger');
 const NodeCoreUtils = require('./node_core_utils');
 const context = require('./node_core_ctx');
 const mng = require('./node_managemnt_utils');
+var request = require('request');
 
 const EventEmitter = require('events');
 const { spawn } = require('child_process');
@@ -55,8 +56,18 @@ class NodeRelaySession extends EventEmitter {
       
       if(publisherSession!=null && this.conf.forceStop==1)
       {
-        var management = new mng();
-        management.failChannel(publisherSession.config.management.url,this.conf.liveChannelId,`C${code}`);
+        var options = {
+          method: 'POST',
+          json: true,
+          url:  live.masterServer+'api/v2/lives/proxy/stop' ,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic '+ Buffer.from( this.config.masterServer.user+ ':' +this.config.masterServer.password ).toString('base64')
+          },
+          body: { destination_id: this.conf.liveChannelId }
+        };
+        request(options, function (err, res, body) {
+        });
       }
 
       this.emit('end', this.id);

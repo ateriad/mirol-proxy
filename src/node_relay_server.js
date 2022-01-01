@@ -119,18 +119,6 @@ class NodeRelayServer {
     context.sessions.set(id, session);
     session.on('end', (id) => {
       this.dynamicSessions.delete(id);
-      var options = {
-        method: 'POST',
-        json: true,
-        url:  live.masterServer+'api/v2/lives/proxy/stop' ,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic '+ Buffer.from( this.config.masterServer.user+ ':' +this.config.masterServer.password ).toString('base64')
-        },
-        body: { liveChannel: live.liveChannel.id  , destination_id : id }
-      };
-      request(options, function (err, res, body) {
-      });
     });
     this.dynamicSessions.set(id, session);
     session.run();
