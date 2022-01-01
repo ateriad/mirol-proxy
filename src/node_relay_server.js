@@ -126,7 +126,7 @@ class NodeRelayServer {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: { liveChannel: live.liveChannel.id  , channel : id }
+        body: { liveChannel: live.liveChannel.id  , destination_id : id }
       };
       request(options, function (err, res, body) {
       });
