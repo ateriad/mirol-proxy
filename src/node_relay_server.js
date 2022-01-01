@@ -124,7 +124,8 @@ class NodeRelayServer {
         json: true,
         url:  live.masterServer+'api/v2/lives/proxy/stop' ,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic '+ Buffer.from( this.config.masterServer.user+ ':' +this.config.masterServer.password ).toString('base64')
         },
         body: { liveChannel: live.liveChannel.id  , destination_id : id }
       };

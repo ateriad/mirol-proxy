@@ -74,6 +74,10 @@ const config = {
       }
     ]
   },
+  masterServer:{
+    user:`${process.env.MASTER_SERVER_USER}`,
+    pssword:`${process.env.MASTER_SERVER_PASSWORD}`
+  }
 };
 
 
