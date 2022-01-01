@@ -108,7 +108,7 @@ class NodeRelayServer {
     conf.forceStop = 1;
     conf.liveChannelId = live.liveChannel.id;
     conf.masterServer=live.masterServer;
-    var url = live.destination.information['stream_url'];
+    var url = live.liveChannel.destination.information['stream_url'];
     var length = url.length;
     if (url[length - 1] != '/') {
       url += '/';
