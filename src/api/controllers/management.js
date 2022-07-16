@@ -80,7 +80,12 @@ function stopStream(req, res, next) {
   res.json({ message: 'ok' });
 }
 
+function healthCheck(req, res, next) {
+  res.json({ message: 'ok' });
+}
+
 exports.startChannel = startChannel;
 exports.stopChannel = stopChannel;
 exports.stopStream = stopStream;
 exports.checkLive = checkLive;
+exports.healthCheck = healthCheck;

@@ -120,8 +120,8 @@ class NodeRelayServer {
     conf.argv = ['-fflags', 'nobuffer', '-i', inPath, '-c', 'copy', '-f', format, ouPath];
 
     let session = new NodeRelaySession(conf);
-    const id = session.id;
     session.id = live.liveChannel.destination.id;
+    const id = session.id;
     context.sessions.set(id, session);
     session.on('end', (id) => {
       this.dynamicSessions.delete(id);
