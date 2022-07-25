@@ -49,6 +49,10 @@ class NodeHttpServer {
       this.onConnect(req, res);
     });
 
+    app.get('/health-check', (req, res, next) => {
+      res.json({ message: 'ok' });
+    });
+    
     let adminEntry = path.join(__dirname + '/public/admin/index.html');
     if (Fs.existsSync(adminEntry)) {
       app.get('/admin/*', (req, res) => {
