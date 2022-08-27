@@ -100,7 +100,7 @@ class NodeRelayServer {
   onRelayPush(live , publisher , app) {
     let conf = {};
     conf.app = app;
-    conf.name = live.liveChannel.destination.information['stream_key'];
+    conf.name = live.liveChannel.destination.details['stream_key'];
     conf.ffmpeg = this.config.relay.ffmpeg;
     conf.ffmpeg = publisher.config.relay.ffmpeg;
     var inPath = 'rtmp://127.0.0.1:' + publisher.config.rtmp.port + publisher.publishStreamPath;
@@ -108,12 +108,12 @@ class NodeRelayServer {
     conf.forceStop = 1;
     conf.liveChannelId = live.liveChannel.id;
     conf.masterServer=live.masterServer;
-    var url = live.liveChannel.destination.information['stream_url'];
+    var url = live.liveChannel.destination.details['stream_url'];
     var length = url.length;
     if (url[length - 1] != '/') {
       url += '/';
     }
-    var ouPath = url + live.liveChannel.destination.information['stream_key'];
+    var ouPath = url + live.liveChannel.destination.details['stream_key'];
     conf.ouPath = ouPath;
     conf.path = publisher.publishStreamPath;
     let format = ouPath.startsWith('rtsp://') ? 'rtsp' : 'flv';
