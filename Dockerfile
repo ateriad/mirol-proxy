@@ -4,7 +4,8 @@ ENV APP_DIR="/app"
 
 WORKDIR ${APP_DIR}
 RUN apt-get update && apt-get -y install curl software-properties-common
-RUN apt-get update 
+RUN apt-get update
+RUN add-apt-repository ppa:jonathonf/ffmpeg-4
 RUN apt-get update && apt-get -y install ffmpeg
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get -y install nodejs
