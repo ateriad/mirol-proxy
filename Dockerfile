@@ -10,6 +10,7 @@ RUN apt-get update && apt-get -y install ffmpeg
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get -y install nodejs
 COPY ["package.json", "package-lock.json*", "./"] 
+RUN npm update
 RUN npm install 
 COPY . .
 EXPOSE 1935 8000 8443
